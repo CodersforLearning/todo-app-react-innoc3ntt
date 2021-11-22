@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React from "react";
+
+function Card(props) {
+    return <div>
+        <h2>To do </h2>
+        <p>test</p> {props.desc}</div>;
+}
 
 function App() {
-  return (
-    <div className="min-h-full">
-      <header className="App-header">
-        <img src={logo} className="h8-w8" alt="logo" />
-        <p className="h-8 w-8">
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [toDos, setTodos] = React.useState([{text: "this is sample", isDone: false}]);
+    return (
+        <div className="min-h-full">
+            <h1 className="text-pink-500">To do list</h1>
+            <input type="text"/>
+            <button type="submit" className="bg-red">ADD</button>
+        </div>
+    );
 }
+
+const addToDo = text => {
+    const newTodos = [...todos, {text}];
+};
 
 export default App;
