@@ -1,6 +1,6 @@
 import "./App.css";
 import React from "react";
-import {Button, Card, Form} from "react-bootstrap";
+import {Button, Card} from "react-bootstrap";
 import * as PropTypes from "prop-types";
 
 function ToDo({
@@ -51,34 +51,36 @@ ToDo.propTypes = {
 };
 
 function App() {
-    const [toDos, setToDos] = React.useState([
-        {
-            text: "this is sample",
-            isDone: false
-        }]);
+    let storedList = JSON.parse(localStorage.getItem('list'))
+    if (!storedList) storedList = [];
+    console.log(storedList)
+    const [toDos, setToDos] = React.useState(storedList);
 
     const addToDo = text => {
         const newToDos = [...toDos, {text}];
         setToDos(newToDos);
+        localStorage.setItem('list', JSON.stringify(newToDos))
     };
 
     const markToDoDone = index => {
-        const newTodos = [...toDos];
-        newTodos[index].isDone = !newTodos[index].isDone;
-        setToDos(newTodos);
+        const newToDos = [...toDos];
+        newToDos[index].isDone = !newToDos[index].isDone;
+        setToDos(newToDos);
+        localStorage.setItem('list', JSON.stringify(newToDos))
     };
 
     const removeToDo = index => {
         const newToDos = [...toDos];
         newToDos.splice(index, 1);
         setToDos(newToDos);
+        localStorage.setItem('list', JSON.stringify(newToDos))
     };
 
     return (
-        <div className="">
-            <h1 className="text-pink-500 text-center">To do list</h1>
+        <div>
+            <h1 className="text-pink-500 text-center font-roboto">To do list</h1>
             <ToDoForm addToDo={addToDo}/>
-            <div className>
+            <div>
                 {toDos.map((toDo, index) => {
                     return (<Card>
                         <Card.Body>
