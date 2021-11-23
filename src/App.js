@@ -26,18 +26,19 @@ function ToDoForm({addToDo}) {
         if (!value) return;
         addToDo(value);
         setValue("");
+    };
 
-        return (
+    return (
             <Form onSubmit={handleSubmit}>
                 <Form.Group>
                     <Form.Label>Add ToDo</Form.Label>
-                    <Form.Control type="text" className="input" value={value} onChange={e => setValue(e.target.value)}
+                    <Form.Control type="text" className="input" value={value}
+                                  onChange={e => setValue(e.target.value)}
                                   placeholder="Add new todo"/>
                 </Form.Group>
                 <Button variant="light" type="submit">Submit</Button>
             </Form>
-        );
-    };
+    );
 }
 
 ToDo.propTypes = {
@@ -57,12 +58,10 @@ function App() {
             isDone: false
         }]);
 
+    //ToDo add a toggle handler for isDone state
+
     const addToDo = text => {
-        const newToDo = {
-            text: {text},
-            isDone: false
-        };
-        const newToDos = [...toDos, newToDo];
+        const newToDos = [...toDos, {text}];
         setToDos(newToDos);
     };
 
@@ -81,6 +80,7 @@ function App() {
     return (
         <div className="min-h-full">
             <h1 className="text-pink-500">To do list</h1>
+            <ToDoForm addToDo={addToDo}/>
             <div>
                 {toDos.map((toDo, index) => {
                     return (<Card>
