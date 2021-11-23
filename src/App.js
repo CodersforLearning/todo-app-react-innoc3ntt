@@ -9,7 +9,13 @@ function ToDo({
                   index,
                   markToDo
               }) {
-    return <div className="toDo"><span>{toDo.text}</span></div>;
+    return <div className="toDo">
+        <span>{toDo.text}</span>
+        <div>
+            <Button variant="outline-success" onClick={() => markToDo(index)}>✓</Button>
+            <Button variant="outline-danger" onClick={() => removeToDo(index)}>x</Button>
+        </div>
+    </div>;
 }
 
 ToDo.propTypes = {
@@ -30,7 +36,11 @@ function App() {
         }]);
 
     const addToDo = text => {
-        const newToDos = [...toDos, {text}];
+        const newToDo = {
+            text: {text},
+            isDone: false
+        };
+        const newToDos = [...toDos, newToDo];
         setToDos(newToDos);
     };
 
@@ -59,7 +69,6 @@ function App() {
                         </Card.Body>
                     </Card>);
                 })}
-                <button type="submit" className="bg-red">ADD</button>
             </div>
         </div>
     );
