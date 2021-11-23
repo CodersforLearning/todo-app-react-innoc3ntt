@@ -1,6 +1,6 @@
 import "./App.css";
 import React from "react";
-import {Button, Card} from "react-bootstrap";
+import {Button, Card, Form} from "react-bootstrap";
 import * as PropTypes from "prop-types";
 
 function ToDo({
@@ -16,6 +16,28 @@ function ToDo({
             <Button variant="outline-danger" onClick={() => removeToDo(index)}>x</Button>
         </div>
     </div>;
+}
+
+function ToDoForm({addToDo}) {
+    const [value, setValue] = React.useState("");
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        if (!value) return;
+        addToDo(value);
+        setValue("");
+
+        return (
+            <Form onSubmit={handleSubmit}>
+                <Form.Group>
+                    <Form.Label>Add ToDo</Form.Label>
+                    <Form.Control type="text" className="input" value={value} onChange={e => setValue(e.target.value)}
+                                  placeholder="Add new todo"/>
+                </Form.Group>
+                <Button variant="light" type="submit">Submit</Button>
+            </Form>
+        );
+    };
 }
 
 ToDo.propTypes = {
@@ -65,7 +87,6 @@ function App() {
                         <Card.Body>
                             <ToDo key={index} index={index} toDo={toDo} markToDo={markToDoDone}
                                   removeToDo={removeToDo}/>
-                            <Card.Text>TEST</Card.Text>
                         </Card.Body>
                     </Card>);
                 })}
