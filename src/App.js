@@ -53,7 +53,6 @@ ToDo.propTypes = {
 function App() {
     let storedList = JSON.parse(localStorage.getItem('list'))
     if (!storedList) storedList = [];
-    console.log(storedList)
     const [toDos, setToDos] = React.useState(storedList);
 
     const addToDo = text => {
