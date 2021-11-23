@@ -9,13 +9,14 @@ function ToDo({
                   index,
                   markToDo
               }) {
-    return <div className="toDo">
-        <span>{toDo.text}</span>
-        <div>
-            <Button variant="outline-success" onClick={() => markToDo(index)}>✓</Button>
-            <Button variant="outline-danger" onClick={() => removeToDo(index)}>x</Button>
-        </div>
-    </div>;
+    return (
+        <div className="flex justify-between">
+            <span style={{textDecoration: toDo.isDone ? "line-through" : ""}}>{toDo.text}</span>
+            <div className="">
+                <Button variant="outline-success" onClick={() => markToDo(index)}>✓</Button>
+                <Button variant="outline-danger" onClick={() => removeToDo(index)}>x</Button>
+            </div>
+        </div>);
 }
 
 function ToDoForm({addToDo}) {
@@ -24,20 +25,21 @@ function ToDoForm({addToDo}) {
     const handleSubmit = e => {
         e.preventDefault();
         if (!value) return;
+
         addToDo(value);
         setValue("");
     };
 
     return (
-            <Form onSubmit={handleSubmit}>
-                <Form.Group>
-                    <Form.Label>Add ToDo</Form.Label>
-                    <Form.Control type="text" className="input" value={value}
-                                  onChange={e => setValue(e.target.value)}
-                                  placeholder="Add new todo"/>
-                </Form.Group>
-                <Button variant="light" type="submit">Submit</Button>
-            </Form>
+        <form onSubmit={handleSubmit}>
+            <label>
+                <h2>Add ToDo</h2>
+                <input type="text" className="input" value={value}
+                       onChange={e => setValue(e.target.value)}
+                       placeholder="Add new todo"/>
+            </label>
+            <input className="bg-blue-100" type="submit" value="Add"/>
+        </form>
     );
 }
 
@@ -58,8 +60,6 @@ function App() {
             isDone: false
         }]);
 
-    //ToDo add a toggle handler for isDone state
-
     const addToDo = text => {
         const newToDos = [...toDos, {text}];
         setToDos(newToDos);
@@ -67,7 +67,7 @@ function App() {
 
     const markToDoDone = index => {
         const newTodos = [...toDos];
-        newTodos[index].isDone = true;
+        newTodos[index].isDone = !newTodos[index].isDone;
         setToDos(newTodos);
     };
 
@@ -78,10 +78,10 @@ function App() {
     };
 
     return (
-        <div className="min-h-full">
-            <h1 className="text-pink-500">To do list</h1>
+        <div className="flex-col justify-center">
+            <h1 className="text-pink-500 text-center">To do list</h1>
             <ToDoForm addToDo={addToDo}/>
-            <div>
+            <div className>
                 {toDos.map((toDo, index) => {
                     return (<Card>
                         <Card.Body>
