@@ -10,12 +10,12 @@ function ToDo({
                   markToDo
               }) {
     return (
-        <div className="flex justify-between">
-            <span style={{textDecoration: toDo.isDone ? "line-through" : ""}}>{toDo.text}</span>
-            <div className="">
-                <Button variant="outline-success" onClick={() => markToDo(index)}>✓</Button>
-                <Button variant="outline-danger" onClick={() => removeToDo(index)}>x</Button>
-            </div>
+        <div className="my-2">
+            <span className="px-2" style={{textDecoration: toDo.isDone ? "line-through" : ""}}>{toDo.text}</span>
+            <span className="float-right">
+                <Button className="px-2" onClick={() => markToDo(index)}>✓</Button>
+                <Button className="px-2" variant="outline-danger" onClick={() => removeToDo(index)}>x</Button>
+            </span>
         </div>);
 }
 
@@ -31,14 +31,11 @@ function ToDoForm({addToDo}) {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                <h2>Add ToDo</h2>
-                <input type="text" className="input" value={value}
+        <form className="px-2" onSubmit={handleSubmit}>
+                <input className="border-1 border-blue-100" type="text" value={value}
                        onChange={e => setValue(e.target.value)}
                        placeholder="Add new todo"/>
-            </label>
-            <input className="bg-blue-100" type="submit" value="Add"/>
+            <input className="bg-blue-100 float-right px-2" type="submit" value="Add"/>
         </form>
     );
 }
@@ -78,7 +75,7 @@ function App() {
     };
 
     return (
-        <div className="flex-col justify-center">
+        <div className="">
             <h1 className="text-pink-500 text-center">To do list</h1>
             <ToDoForm addToDo={addToDo}/>
             <div className>
