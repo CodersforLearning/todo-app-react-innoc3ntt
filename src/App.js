@@ -2,6 +2,29 @@ import "./App.css";
 import React from "react";
 import {Button, Card} from "react-bootstrap";
 import * as PropTypes from "prop-types";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+    apiKey: "AIzaSyDyaPzzqcQNx0AMffKzPiQHgYvTveZ4PC4",
+    authDomain: "todo-app-b179d.firebaseapp.com",
+    projectId: "todo-app-b179d",
+    storageBucket: "todo-app-b179d.appspot.com",
+    messagingSenderId: "565529030621",
+    appId: "1:565529030621:web:ccfde6e68dca0e62859034",
+    measurementId: "G-Z6J17S6QTH"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+
 
 function ToDo({
                   toDo,
